@@ -62,7 +62,7 @@ run: stop
 		--name $(DOCKER_IMAGE_NAME) \
 		--restart=unless-stopped \
 		-e TZ=$(MY_TIME_ZONE) \
-		-v $(DOCKER_VOLUME_NAME):/config \
+		-v $(DOCKER_VOLUME_NAME):/data \
 		-p 1880:1880 \
 		$(DOCKER_IMAGE_BASE):$(DOCKER_IMAGE_VERSION)
 
