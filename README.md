@@ -1,25 +1,25 @@
-# service-homeassistant
-![](https://img.shields.io/github/license/open-horizon-services/service-homeassistant) ![](https://img.shields.io/badge/architecture-x86,_arm64-green) ![Contributors](https://img.shields.io/github/contributors/open-horizon-services/service-homeassistant.svg)
+# service-node-red
+![](https://github.com/node-red/node-red-docker/blob/master/LICENSE)
 
-This is an Open Horizon configuration to deploy a vanilla instance of the open-source [Home Assistant](https://www.home-assistant.io/getting-started) software.  The Home Assistant UI is designed to run in a web browser, so you will need to navigate to <http://localhost:8123/> to use the software once it has been deployed.
+This is an Open Horizon configuration to deploy a vanilla instance of the open-source [Node-Red][([https://nodered.org/docs/getting-started/docker]) software.  The Node-Red UI is designed to run in a web browser, so you will need to navigate to <http://localhost:1880/> to use the software once it has been deployed.
 
 ## Prerequisites
 
 **Management Hub:** [Install the Open Horizon Management Hub](https://open-horizon.github.io/quick-start) or have access to an existing hub in order to publish this service and register your edge node.  You may also choose to use a downstream commercial distribution based on Open Horizon, such as IBM's Edge Application Manager.  If you'd like to use the Open Horizon community hub, you may [apply for a temporary account](https://wiki.lfedge.org/display/LE/Open+Horizon+Management+Hub+Developer+Instance) and have credentials sent to you.
 
-**Edge Node:** You will need an x86 computer running Linux or macOS, or a Raspberry Pi computer (arm64) running Raspberry Pi OS or Ubuntu to install and use Home Assistant deployed by Open Horizon.  You will need to install the Open Horizon agent software, anax, on the edge node and register it with a hub.
+**Edge Node:** You will need an x86 computer running Linux or macOS, or a Raspberry Pi computer (arm64) running Raspberry Pi OS or Ubuntu to install and use Node-Red deployed by Open Horizon.  You will need to install the Open Horizon agent software, anax, on the edge node and register it with a hub.
 
 **Optional utilities to install:**  With `brew` on macOS (you may need to install _that_ as well), `apt-get` on Ubuntu or Raspberry Pi OS, `yum` on Fedora, install `gcc`, `make`, `git`, `jq`, `curl`, `net-tools`.  Not all of those may exist on all platforms, and some may already be installed.  But reflexively installing those has proven helpful in having the right tools available when you need them.
 
 ## Installation
 
-Clone the `service-homeassistant` GitHub repo from a terminal prompt on the edge node and enter the folder where the artifacts were copied.
+Clone the `service-nodered` GitHub repo from a terminal prompt on the edge node and enter the folder where the artifacts were copied.
 
   NOTE: This assumes that `git` has been installed on the edge node.
 
   ``` shell
-  git clone https://github.com/open-horizon-services/service-homeassistant.git
-  cd service-homeassistant
+  git clone https://github.com/jwende/service-nodered.git
+  cd service-nodered
   ```
 
 Run `make clean` to confirm that the "make" utility is installed and working.
@@ -33,8 +33,8 @@ Confirm that you have the Open Horizon agent installed by using the CLI to check
   It should return values for both the CLI and the Agent (actual version numbers may vary from those shown):
 
   ``` text
-  Horizon CLI version: 2.30.0-744
-  Horizon Agent version: 2.30.0-744
+  Horizon CLI version: 2.30.0-1491
+  Horizon Agent version: 2.30.0-1491 
   ```
 
   If it returns "Command not found", then the Open Horizon agent is not installed.
@@ -56,9 +56,9 @@ curl -sSL https://github.com/open-horizon/anax/releases/latest/download/agent-in
 
 ## Usage
 
-To manually run Home Assistant locally as a test, enter `make`.  This will open a browser window, but it may do so before Home Assistant is completely ready.  If you get a blank web page, wait about 10 seconds or so and reload the page.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
+To manually run Node-Red locally as a test, enter `make`.  This will open a browser window, but it may do so before Node-Red is completely ready.  If you get a blank web page, wait about 10 seconds or so and reload the page.  Running `make attach` will connect you to a prompt running inside the container, and you can end that session by entering `exit`.  When you are done, run `make stop` in the terminal to end the test.
 
-To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run Home Assistant, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.  You may then open a browser pointing to Home Assistant by entering `make browse` or visiting [http://localhost:8123/](http://localhost:8123/) in a web browser.
+To create [the service definition](https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/CreateService.md#build-publish-your-hw), publish it to the hub, and then form an agreement to download and run Node-Red, enter `make publish`.  When installation is complete and an agreement has been formed, exit the watch command with Control-C.  You may then open a browser pointing to Node-Red by entering `make browse` or visiting [http://localhost:1880/](http://localhost:1880/) in a web browser.
 
 ## Advanced details
 
@@ -76,18 +76,18 @@ The Makefile includes several targets to assist you in inspecting what is happen
 
 `make attach` to connect to the running container and open a shell inside it.
 
-> **Note** The service-homeassistant container by default runs in un-privileged mode, but it may require privileged conditions in certain cases (For eg: to detect specific hardware, for more information please ref. <https://github.com/home-assistant/home-assistant.io/issues/18014>). In that case you can manually add "--privileged" flag in the Makefile under `docker-run` command.
+> **Note** The Node-Red container by default runs in un-privileged mode, but it may require privileged conditions in certain cases. In that case you can manually add "--privileged" flag in the Makefile under `docker-run` command.
 
 ### All Makefile targets
 
 * `default` - init run browse
 * `init` - optionally create the docker volume
-* `run` - manually run the homeassistant container locally as a test
-* `browse` - open the Home Assistant UI in a web browser
+* `run` - manually run the Node-Red container locally as a test
+* `browse` - open the Node-Red UI in a web browser
 * `check` - view current settings
 * `stop` - halt a locally-run container
-* `dev` - manually run homeassistant locally and connect to a terminal in the container
-* `attach` - connect to a terminal in the homeassistant container
+* `dev` - manually run Node-Red locally and connect to a terminal in the container
+* `attach` - connect to a terminal in the Node-Red container
 * `test` - request the web UI from the terminal to confirm that it is running and available
 * `clean` - remove the container image and docker volume
 * `distclean` - clean (see above) AND unregister the node and remove the service files from the hub
