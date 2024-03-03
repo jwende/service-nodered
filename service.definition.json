@@ -1,8 +1,8 @@
 {
 	"org": "$HZN_ORG_ID",
 	"label": "$SERVICE_NAME for $ARCH",
-	"description": "A service to deploy Home Assistant with Open Horizon",
-	"documentation": "https://github.com/open-horizon-services/service-homeassistant/blob/main/README.md",
+	"description": "A service to deploy nodered with Open Horizon",
+	"documentation": "https://nodered.org/docs/",
 	"url": "$SERVICE_NAME",
 	"version": "$SERVICE_VERSION",
 	"arch": "$ARCH",
@@ -22,7 +22,7 @@
 			"$SERVICE_NAME": {
 				"image": "$DOCKER_IMAGE_BASE:$DOCKER_IMAGE_VERSION",
 				"ports": [
-					{ "HostIP": "0.0.0.0", "HostPort": "8123:8123/tcp" }
+					{ "HostIP": "0.0.0.0", "HostPort": "1880:1880/tcp" }
 				]
 			}
 		}
