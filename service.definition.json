@@ -23,7 +23,10 @@
 				"image": "$DOCKER_IMAGE_BASE:$DOCKER_IMAGE_VERSION",
 				"ports": [
 					{ "HostIP": "0.0.0.0", "HostPort": "1880:1880/tcp" }
-				]
+				],
+				"binds": [
+					"$DOCKER_VOLUME_NAME:/data"
+				],
 			}
 		}
    }
